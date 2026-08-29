@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+:root {
+  --amber: #f5a942;
+  --amber-hi: #ffd489;
+  --teal: #5fe0c4;
+  --ink: #04070d;
+  --hairline: rgba(214, 230, 245, 0.14);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+body {
+  font-family: "Rajdhani", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+}
+.font-mono2 {
+  font-family: "Share Tech Mono", monospace;
+}
+
+/* ---------- HUD panels ---------- */
+.hud-panel {
+  background: rgba(6, 11, 18, 0.78);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+.hud-panel::before,
+.hud-panel::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--amber);
+  border-style: solid;
+  opacity: 0.85;
+}
+.hud-panel::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.hud-panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+.hud-chip {
+  border: 1px solid var(--hairline);
+  background: rgba(8, 14, 22, 0.7);
+  transition: all 0.18s ease;
+  letter-spacing: 0.08em;
+}
+.hud-chip:hover {
+  border-color: rgba(245, 169, 66, 0.65);
+  color: var(--amber-hi);
+  background: rgba(245, 169, 66, 0.08);
+}
+.hud-chip.active {
+  border-color: var(--amber);
+  color: #0a0d12;
+  background: linear-gradient(180deg, #ffd489, #f5a942);
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(245, 169, 66, 0.35);
+}
+
+.hud-btn {
+  border: 1px solid var(--hairline);
+  background: rgba(8, 14, 22, 0.7);
+  transition: all 0.18s ease;
+}
+.hud-btn:hover {
+  border-color: rgba(95, 224, 196, 0.6);
+  color: var(--teal);
+}
+
+/* ---------- range slider ---------- */
+input[type="range"].hud-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(245, 169, 66, 0.9), rgba(245, 169, 66, 0.25));
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].hud-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #ffd489;
+  border: 1px solid #0a0d12;
+  box-shadow: 0 0 10px rgba(245, 169, 66, 0.7);
+  transform: rotate(45deg);
+}
+input[type="range"].hud-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  background: #ffd489;
+  border: 1px solid #0a0d12;
+  transform: rotate(45deg);
+}
+
+/* ---------- 3D body labels ---------- */
+.body-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: rgba(226, 238, 248, 0.82);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+  will-change: transform;
+}
+.body-label i {
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(245, 169, 66, 0.9);
+  display: inline-block;
+}
+.body-label.sel {
+  color: var(--amber-hi);
+}
+.body-label.sel i {
+  background: var(--teal);
+  box-shadow: 0 0 10px rgba(95, 224, 196, 0.9);
+}
+
+/* ---------- misc ---------- */
+.vignette {
+  background:
+    radial-gradient(ellipse at center, transparent 52%, rgba(2, 4, 8, 0.55) 100%),
+    linear-gradient(180deg, rgba(2, 4, 8, 0.5), transparent 18%, transparent 84%, rgba(2, 4, 8, 0.6));
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.016) 0px,
+    rgba(255, 255, 255, 0.016) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.pulse-soft {
+  animation: pulse-soft 2.2s ease-in-out infinite;
+}
+
+@keyframes launch-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.launch-in {
+  animation: launch-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.launch-in-1 { animation-delay: 0.08s; }
+.launch-in-2 { animation-delay: 0.18s; }
+.launch-in-3 { animation-delay: 0.3s; }
+.launch-in-4 { animation-delay: 0.44s; }
+
+.throttle-bar {
+  background: linear-gradient(90deg, #f5a942, #ffd489);
+  box-shadow: 0 0 12px rgba(245, 169, 66, 0.55);
+  transition: width 0.12s linear;
+}
